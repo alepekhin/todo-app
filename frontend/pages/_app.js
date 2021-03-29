@@ -1,16 +1,11 @@
-import "bootstrap/dist/css/bootstrap.css";
-import Head from "next/head";
-import store from './store'
-import { Provider } from 'react-redux'
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../utils";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <ApolloProvider client={client}>
       <Component {...pageProps} />
-    </Provider>
+    </ApolloProvider>
   );
 }
 

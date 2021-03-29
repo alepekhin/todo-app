@@ -3,10 +3,8 @@
 built with
 
 - Next.js 
-- typescript
-- bootstrap
-- storybook
+- Typescript
 - Apollo client
-- Redux
 
 Backend used http://localhost:4000/graphql
+

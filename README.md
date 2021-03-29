@@ -18,7 +18,7 @@ cd backend;yarn start:dev
 ```
 - start frontend in another terminal
 ```
-cd frontend;yarn start
+cd frontend;yarn dev
 ```
 - to start storybook: `yarn storybook`
 
