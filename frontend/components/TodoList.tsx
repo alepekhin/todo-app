@@ -1,46 +1,27 @@
-import React from "react";
+import React, {useEffect } from "react";
 import { TodoCard } from "./Card";
-import { useQuery, gql } from "@apollo/client";
-import ClientOnly from "./ClientOnly";
+import { useReactiveVar } from "@apollo/client";
+import { todoFilter } from '../utils'
 
-export interface TodoType {
-  id: string;
-  description: string;
-  done: boolean;
-}
 
-const QUERY = gql`
-  query todos {
-    todos {
-      _id
-      description
-      done
-    }
-  }
-`;
 
-export default function TodoList() {
-  const { data, loading, error } = useQuery(QUERY);
+export default function TodoList({todos, refetch}) {
+  const done = useReactiveVar(todoFilter);
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (error) {
-    console.error(error);
-    return null;
-  }
-
-  const todos = data.todos;
-
-  const listItems = todos.map((todo) => (
+  const listItems = todos.filter(todo => todo.done === done).map((todo) => (
     <TodoCard
+      user={todo.user}
       key={todo._id}
       id={todo._id}
       description={todo.description}
       done={todo.done}
+      refetch={refetch}
     />
   ));
 
-  return <ClientOnly>{listItems}</ClientOnly>;
+  return (
+    <>
+    {listItems}
+    </>
+  )
 }

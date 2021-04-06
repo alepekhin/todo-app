@@ -1,17 +1,21 @@
-export const TodoFilter = () => {
-  
+import {todoFilter} from '../utils'
 
+export const TodoFilter = ({refetch}) => {
+  
   const openHandler = e => {
+    todoFilter(false)
   }
 
   const closeHandler = e => {
+    todoFilter(true)
   }
   
   return (
     <div>
-      Show: &nbsp;
-      <div onClick={openHandler} />
-      <div onClick={closeHandler} />
+      <p/>
+      <span>Show: </span>
+      <input type="radio" name="filter" onClick={openHandler} defaultChecked/> Opened
+      <input type="radio" name="filter"  onClick={closeHandler} /> Closed
     </div>
   );
 };

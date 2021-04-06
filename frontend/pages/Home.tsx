@@ -1,15 +1,16 @@
 import Router from "next/router";
-import { userVar } from "../utils";
+import { saveUser } from '../utils'
 
 export default function Home() {
+
   const onLinkClick = () => {
-    userVar("guest");
-    Router.push("/Todo");
+      saveUser("guest")
+      Router.push("/Todo");
   };
 
   const onLoginClick = () => {
-    userVar("alepekhin");
-    Router.push("/Todo");
+      saveUser("alepekhin")
+      Router.push("/Todo");
   };
 
   return (

@@ -8,19 +8,15 @@ and Next.js, Redux and GrapghQL client in frontend.
 
 Prerequsites: node, yarn, mongodb are installed, database `myapp` and collection `todos` are created
 
-- start database
 ```
 docker start mongodb
+cd backend
+yarn start
+  in another terminal
+cd frontend
+yarn dev
 ```
-- start backend
-```
-cd backend;yarn start:dev
-```
-- start frontend in another terminal
-```
-cd frontend;yarn dev
-```
-- to start storybook: `yarn storybook`
+
 
 
 
