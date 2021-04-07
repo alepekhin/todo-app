@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prettier-format": "./node_modules/prettier/bin-prettier.js --write .",
-    "prettier-check": "./node_modules/prettier/bin-prettier.js --check ."
+    "prettier": "./node_modules/prettier/bin-prettier.js --write ."
   },
   "dependencies": {
     "@apollo/client": "^3.3.13",
