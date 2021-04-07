@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prettier-format": "./node_modules/prettier/bin-prettier.js --write .",
+    "prettier-check": "./node_modules/prettier/bin-prettier.js --check ."
   },
   "dependencies": {
     "@apollo/client": "^3.3.13",
@@ -21,4 +23,5 @@
     "@types/react": "^17.0.3",
     "typescript": "^4.2.3",
     "prettier": "^2.2.1"
-  }}
+  }
+}

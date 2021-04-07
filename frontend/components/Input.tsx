@@ -22,6 +22,13 @@ export const TodoInput = ({ refetch }) => {
     setVal(e.target.value)
   }
 
+  const onKeyDown = (e) => {
+    if (e.keyCode == '13') {
+      // submit by Enter key
+      onClickHanler(e)
+    }
+  }
+
   const onClickHanler = (e) => {
     if (val) {
       if (todoId()) {
@@ -41,6 +48,7 @@ export const TodoInput = ({ refetch }) => {
       <input
         value={val}
         onChange={onChangeHanler}
+        onKeyDown={onKeyDown}
         placeholder="What needs to be done"
       />
       <button onClick={onClickHanler}> Submit</button>

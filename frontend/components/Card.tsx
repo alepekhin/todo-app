@@ -1,31 +1,38 @@
-import { userVar } from "../utils";
-import { todoText, todoId, todoDone, DELETE_TODO, UPDATE_TODO, TodoType } from "../utils";
-import { gql, useMutation } from "@apollo/client";
+import { userVar } from '../utils'
+import {
+  todoText,
+  todoId,
+  todoDone,
+  DELETE_TODO,
+  UPDATE_TODO,
+  TodoType,
+} from '../utils'
+import { gql, useMutation } from '@apollo/client'
 
 export const TodoCard = (props) => {
-  const [deleteTodo, { data }] = useMutation(DELETE_TODO);
-  const [updateTodo, {}] = useMutation(UPDATE_TODO);
+  const [deleteTodo, { data }] = useMutation(DELETE_TODO)
+  const [updateTodo, {}] = useMutation(UPDATE_TODO)
 
   const deleteHandler = (e) => {
-    deleteTodo({ variables: { id: props.id } });
+    deleteTodo({ variables: { id: props.id } })
     todoText('')
     todoId('')
     props.refetch()
-};
+  }
 
   const reopenHandler = (e) => {
-    updateTodo({ variables: { id:props.id, done: false } });
-  };
+    updateTodo({ variables: { id: props.id, done: false } })
+  }
 
   const closeHandler = (e) => {
-    updateTodo({ variables: { id:props.id, done: true } });
-  };
+    updateTodo({ variables: { id: props.id, done: true } })
+  }
 
   const editHandler = (e) => {
-    todoText(props.description);
+    todoText(props.description)
     todoId(props.id)
     todoDone(props.done)
-  };
+  }
 
   return (
     <div>
@@ -33,12 +40,24 @@ export const TodoCard = (props) => {
       <b>{props.description}</b>
       <br />
       {props.done ? (
-        <span onClick={reopenHandler}> REOPEN</span>
+        <span onClick={reopenHandler} style={{ cursor: 'pointer' }}>
+          {' '}
+          REOPEN
+        </span>
       ) : (
-        <span onClick={closeHandler}> CLOSE</span>
+        <span onClick={closeHandler} style={{ cursor: 'pointer' }}>
+          {' '}
+          CLOSE
+        </span>
       )}
-      <span onClick={editHandler} > EDIT</span>
-      <span onClick={deleteHandler} > DELETE</span>
+      <span onClick={editHandler} style={{ cursor: 'pointer' }}>
+        {' '}
+        EDIT
+      </span>
+      <span onClick={deleteHandler} style={{ cursor: 'pointer' }}>
+        {' '}
+        DELETE
+      </span>
     </div>
-  );
-};
+  )
+}

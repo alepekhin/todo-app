@@ -1,10 +1,9 @@
-# Yet another TODO app 
+# Yet another TODO app
 
 built with
 
-- Next.js 
+- Next.js
 - Typescript
 - Apollo client
 
 Backend used http://localhost:4000/graphql
-

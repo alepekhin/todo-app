@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div>
       <button onClick={onLoginClick}>Login with Google</button>
-      <p/>
+      <p />
       <button onClick={onLinkClick}>Continue as guest</button>
     </div>
   )
