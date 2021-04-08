@@ -1,4 +1,3 @@
-import { useReactiveVar } from '@apollo/client'
 import Router from 'next/router'
 import { getUser } from '../utils'
 

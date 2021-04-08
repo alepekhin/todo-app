@@ -1,18 +1,17 @@
 import { TodoFilter } from '../components/Filter'
 import { TodoHeader } from '../components/Header'
 import { TodoInput } from '../components/Input'
-import TodoList from '../components/TodoList'
-import { useQuery, gql } from '@apollo/client'
-import Router from 'next/router'
+import { TodoList } from '../components/TodoList'
+import { useQuery } from '@apollo/client'
 import React from 'react'
-import ClientOnly from '../components/ClientOnly'
 import { QUERY } from '../utils'
 import { getUser } from '../utils'
 
-export default function Todo() {
+// Anonymous arrow functions cause Fast Refresh to not preserve local component state
+// Use this pattern instead!!!
+const Todo = () => {
   const { data, loading, error, refetch } = useQuery(QUERY, {
     variables: { user: getUser() },
-    ssr: true,
   })
 
   if (loading) {
@@ -28,10 +27,10 @@ export default function Todo() {
     <div>
       <TodoHeader />
       <TodoInput refetch={refetch} />
-      <TodoFilter refetch={refetch} />
-      <ClientOnly>
-        <TodoList todos={data.todos} refetch={refetch} />
-      </ClientOnly>
+      <TodoFilter />
+      <TodoList todos={data.todos} refetch={refetch} />
     </div>
   )
 }
+
+export default Todo

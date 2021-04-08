@@ -17,8 +17,8 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 })
 
 export interface TodoType {
+  _id: string
   user: string
-  id: string
   description: string
   done: boolean
 }

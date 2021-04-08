@@ -1,4 +1,3 @@
-import { userVar } from '../utils'
 import {
   todoText,
   todoId,
@@ -9,37 +8,47 @@ import {
 } from '../utils'
 import { gql, useMutation } from '@apollo/client'
 
-export const TodoCard = (props) => {
+interface CardProps extends TodoType {
+  refetch: () => {}
+}
+
+export const TodoCard = ({
+  user,
+  _id,
+  description,
+  done,
+  refetch,
+}: CardProps) => {
   const [deleteTodo, { data }] = useMutation(DELETE_TODO)
   const [updateTodo, {}] = useMutation(UPDATE_TODO)
 
-  const deleteHandler = (e) => {
-    deleteTodo({ variables: { id: props.id } })
+  const deleteHandler = () => {
+    deleteTodo({ variables: { id: _id } })
     todoText('')
     todoId('')
-    props.refetch()
+    refetch()
   }
 
-  const reopenHandler = (e) => {
-    updateTodo({ variables: { id: props.id, done: false } })
+  const reopenHandler = () => {
+    updateTodo({ variables: { id: _id, done: false } })
   }
 
-  const closeHandler = (e) => {
-    updateTodo({ variables: { id: props.id, done: true } })
+  const closeHandler = () => {
+    updateTodo({ variables: { id: _id, done: true } })
   }
 
   const editHandler = (e) => {
-    todoText(props.description)
-    todoId(props.id)
-    todoDone(props.done)
+    todoText(description)
+    todoId(_id)
+    todoDone(done)
   }
 
   return (
     <div>
       <p />
-      <b>{props.description}</b>
+      <b>{description}</b>
       <br />
-      {props.done ? (
+      {done ? (
         <span onClick={reopenHandler} style={{ cursor: 'pointer' }}>
           {' '}
           REOPEN

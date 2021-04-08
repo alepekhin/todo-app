@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { TodoCard } from './Card'
 import { useReactiveVar } from '@apollo/client'
-import { todoFilter } from '../utils'
+import { todoFilter, TodoType } from '../utils'
 
-export default function TodoList({ todos, refetch }) {
+interface PropsType {
+  todos: TodoType[],
+  refetch: () => {}
+}
+
+export const TodoList = ({ todos, refetch }: PropsType) => {
   const done = useReactiveVar(todoFilter)
   /*
   _id object includes create timestamp in seconds, so we can sort by it
@@ -17,7 +22,7 @@ export default function TodoList({ todos, refetch }) {
       <TodoCard
         user={todo.user}
         key={todo._id}
-        id={todo._id}
+        _id={todo._id}
         description={todo.description}
         done={todo.done}
         refetch={refetch}
@@ -26,3 +31,4 @@ export default function TodoList({ todos, refetch }) {
 
   return <>{listItems}</>
 }
+

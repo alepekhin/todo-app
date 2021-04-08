@@ -1,11 +1,11 @@
 import { todoFilter } from '../utils'
 
-export const TodoFilter = ({ refetch }) => {
-  const openHandler = (e) => {
+export const TodoFilter = () => {
+  const openHandler = () => {
     todoFilter(false)
   }
 
-  const closeHandler = (e) => {
+  const closeHandler = () => {
     todoFilter(true)
   }
 
@@ -20,7 +20,8 @@ export const TodoFilter = ({ refetch }) => {
         defaultChecked
       />{' '}
       Opened
-      <input type="radio" name="filter" onClick={closeHandler} /> Closed
+      <input type="radio" name="filter" onClick={closeHandler} />
+      Closed
     </div>
   )
 }

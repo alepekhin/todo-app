@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { TodoType } from '../utils'
 import { todoText, todoId, ADD_TODO, UPDATE_TODO } from '../utils'
 import { useReactiveVar } from '@apollo/client'
-import { gql, useMutation } from '@apollo/client'
-import Router from 'next/router'
+import { useMutation } from '@apollo/client'
 import { getUser } from '../utils'
 
-export const TodoInput = ({ refetch }) => {
-  const [addTodo, { data }] = useMutation(ADD_TODO)
+interface PropsType {
+  refetch: () => {}
+}
+
+export const TodoInput: React.FC<PropsType> = ({ refetch }) => {
+  const [addTodo, {}] = useMutation(ADD_TODO)
   const [updateTodo, {}] = useMutation(UPDATE_TODO)
   const text = useReactiveVar(todoText)
   const id = todoId()
@@ -18,18 +20,21 @@ export const TodoInput = ({ refetch }) => {
     setVal(text)
   }, [text])
 
-  const onChangeHanler = (e) => {
-    setVal(e.target.value)
+  const onChangeHanler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVal(e.currentTarget.value)
   }
 
-  const onKeyDown = (e) => {
-    if (e.keyCode == '13') {
-      // submit by Enter key
-      onClickHanler(e)
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == 'Enter') {
+      saveTodo()
     }
   }
 
-  const onClickHanler = (e) => {
+  const onClickHanler = () => {
+    saveTodo()
+  }
+
+  const saveTodo = () => {
     if (val) {
       if (todoId()) {
         updateTodo({ variables: { id: id, descr: val } })
@@ -48,7 +53,7 @@ export const TodoInput = ({ refetch }) => {
       <input
         value={val}
         onChange={onChangeHanler}
-        onKeyDown={onKeyDown}
+        onKeyPress={onKeyDown}
         placeholder="What needs to be done"
       />
       <button onClick={onClickHanler}> Submit</button>

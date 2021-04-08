@@ -1,7 +1,8 @@
 import Router from 'next/router'
+import React from 'react'
 import { saveUser } from '../utils'
 
-export default function Home() {
+const Home = () => {
   const onLinkClick = () => {
     saveUser('guest')
     Router.push('/Todo')
@@ -20,3 +21,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home
