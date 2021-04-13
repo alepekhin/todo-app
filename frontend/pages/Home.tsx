@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import React from 'react'
-import { saveUser } from '../utils'
-import { useSession, signIn, signOut } from 'next-auth/client'
+import { user } from '../utils'
+import { useSession, signIn } from 'next-auth/client'
 
 const Home = () => {
   const [session, loading] = useSession()
@@ -11,7 +11,7 @@ const Home = () => {
   }
 
   if (session) {
-    saveUser(session.user.email)
+    user(session.user.email)
     Router.replace('/Todo')
     return null
   }

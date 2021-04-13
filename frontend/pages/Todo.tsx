@@ -4,30 +4,37 @@ import { TodoInput } from '../components/Input'
 import { TodoList } from '../components/TodoList'
 import { useQuery } from '@apollo/client'
 import React from 'react'
-import { QUERY } from '../utils'
-import { getUser } from '../utils'
+import { QUERY, user } from '../utils'
 import Router from 'next/router'
+import dynamic from "next/dynamic";
 
 // Anonymous arrow functions cause Fast Refresh to not preserve local component state
-// Use this pattern instead!!!
+// Use this pattern instead
 const Todo = () => {
-
+  // this should be called on the client side only
   const { data, loading, error, refetch } = useQuery(QUERY, {
-    variables: { user: getUser(), ssr: false },
+    variables: { user: user() },
   })
 
-  if (process.browser && !getUser()) {
+  if (!user()) {
     Router.replace('/Home')
   }
+
+  if (process.browser) {
+    console.log('client rendering, user ',user())
+  } else {
+    console.log('server rendering')
+  }
+
   if (loading) {
-    return null
+    console.log('Loading..., user ',user())
     //return <h2>Loading...</h2>
+    return null
   }
 
   if (error) {
-    console.error(error)
-    return null
-    //return <>{error.toString()}</>
+    console.log('Error ', error.toString())
+    return <>{error.toString()}</>
   }
 
   return (
@@ -39,11 +46,6 @@ const Todo = () => {
     </div>
   )
 }
-/*
-export async function getServerSideProps(context) {
-  return {
-    props: {}, // will be passed to the page component as props
-  }
-}
-*/
-export default Todo
+
+// this is how to call page on client side only
+export default dynamic(() => Promise.resolve(Todo),{ssr:false})

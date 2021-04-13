@@ -10,6 +10,7 @@ export const todoId = makeVar<string>('')
 export const todoText = makeVar<string>('')
 export const todoDone = makeVar<boolean>(false)
 export const todoFilter = makeVar<boolean>(false)
+export const user = makeVar<string>('')
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -78,16 +79,3 @@ export const UPDATE_TODO = gql`
     }
   }
 `
-
-
-export const saveUser = (user) => {
-  sessionStorage.setItem('user', user)
-}
-export const getUser = () => {
-  if (typeof window !== 'undefined') {
-    return sessionStorage.getItem('user')
-  } else {
-    return null
-  }
-}
-

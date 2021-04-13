@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { todoText, todoId, ADD_TODO, UPDATE_TODO } from '../utils'
 import { useReactiveVar } from '@apollo/client'
 import { useMutation } from '@apollo/client'
-import { getUser } from '../utils'
+import { user } from '../utils'
 
 interface PropsType {
   refetch: () => {}
@@ -14,7 +14,6 @@ export const TodoInput: React.FC<PropsType> = ({ refetch }) => {
   const text = useReactiveVar(todoText)
   const id = todoId()
   const [val, setVal] = useState('')
-  const user = getUser()
 
   useEffect(() => {
     setVal(text)
@@ -39,7 +38,7 @@ export const TodoInput: React.FC<PropsType> = ({ refetch }) => {
       if (todoId()) {
         updateTodo({ variables: { id: id, descr: val } })
       } else {
-        addTodo({ variables: { user: user, descr: val } })
+        addTodo({ variables: { user: user(), descr: val } })
       }
       todoId('')
       todoText('')

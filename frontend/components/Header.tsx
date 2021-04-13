@@ -1,20 +1,20 @@
 import Router from 'next/router'
-import { getUser, saveUser } from '../utils'
-import { useSession, signIn, signOut } from 'next-auth/client'
+import { user } from '../utils'
+import { signOut } from 'next-auth/client'
 
 export const TodoHeader = () => {
 
   const logoutHandler = () => {
     signOut()
-    saveUser('')
+    user('')
+    Router.push('/Home')
   }
   
-  if (typeof window !== 'undefined') {
-    const user = getUser()
-    if (user) {
+  if (process.browser) {
+    if (user()) {
       return (
         <div>
-          <h5>User: {user} <button onClick={logoutHandler} >Logout</button></h5>
+          <h5>User: {user()} <button onClick={logoutHandler} >Logout</button></h5>
           <h1>User's Todo List</h1>
         </div>
       )
