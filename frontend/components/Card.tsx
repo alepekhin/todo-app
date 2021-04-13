@@ -19,7 +19,7 @@ export const TodoCard = ({
   done,
   refetch,
 }: CardProps) => {
-  const [deleteTodo, { data }] = useMutation(DELETE_TODO)
+  const [deleteTodo, {}] = useMutation(DELETE_TODO)
   const [updateTodo, {}] = useMutation(UPDATE_TODO)
 
   const deleteHandler = () => {

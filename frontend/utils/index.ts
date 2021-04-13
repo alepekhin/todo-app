@@ -13,7 +13,19 @@ export const todoFilter = makeVar<boolean>(false)
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          todos: {
+            merge(existing, incoming) {
+              return incoming
+            },
+          },
+        },
+      },
+    },
+  }),
 })
 
 export interface TodoType {
@@ -67,13 +79,15 @@ export const UPDATE_TODO = gql`
   }
 `
 
+
 export const saveUser = (user) => {
-  localStorage.setItem('user', user)
+  sessionStorage.setItem('user', user)
 }
 export const getUser = () => {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('user')
+    return sessionStorage.getItem('user')
   } else {
     return null
   }
 }
+

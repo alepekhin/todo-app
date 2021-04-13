@@ -4,7 +4,7 @@ import { useReactiveVar } from '@apollo/client'
 import { todoFilter, TodoType } from '../utils'
 
 interface PropsType {
-  todos: TodoType[],
+  todos: TodoType[]
   refetch: () => {}
 }
 
@@ -29,6 +29,5 @@ export const TodoList = ({ todos, refetch }: PropsType) => {
       />
     ))
 
-  return <>{listItems}</>
+    return <>{listItems}</>
 }
-

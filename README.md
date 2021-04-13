@@ -14,6 +14,7 @@ cd backend
 yarn start
   in another terminal
 cd frontend
+cp .env.example .env
 yarn dev
 ```
 

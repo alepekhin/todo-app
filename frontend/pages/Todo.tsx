@@ -6,21 +6,28 @@ import { useQuery } from '@apollo/client'
 import React from 'react'
 import { QUERY } from '../utils'
 import { getUser } from '../utils'
+import Router from 'next/router'
 
 // Anonymous arrow functions cause Fast Refresh to not preserve local component state
 // Use this pattern instead!!!
 const Todo = () => {
+
   const { data, loading, error, refetch } = useQuery(QUERY, {
-    variables: { user: getUser() },
+    variables: { user: getUser(), ssr: false },
   })
 
+  if (process.browser && !getUser()) {
+    Router.replace('/Home')
+  }
   if (loading) {
-    return <h2>Loading...</h2>
+    return null
+    //return <h2>Loading...</h2>
   }
 
   if (error) {
     console.error(error)
     return null
+    //return <>{error.toString()}</>
   }
 
   return (
@@ -32,5 +39,11 @@ const Todo = () => {
     </div>
   )
 }
-
+/*
+export async function getServerSideProps(context) {
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
+*/
 export default Todo

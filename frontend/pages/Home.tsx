@@ -1,25 +1,28 @@
 import Router from 'next/router'
 import React from 'react'
 import { saveUser } from '../utils'
+import { useSession, signIn, signOut } from 'next-auth/client'
 
 const Home = () => {
-  const onLinkClick = () => {
-    saveUser('guest')
-    Router.push('/Todo')
+  const [session, loading] = useSession()
+
+  if (loading) {
+    return <>Loading...</>
   }
 
-  const onLoginClick = () => {
-    saveUser('alepekhin')
-    Router.push('/Todo')
+  if (session) {
+    saveUser(session.user.email)
+    Router.replace('/Todo')
+    return null
   }
 
   return (
-    <div>
-      <button onClick={onLoginClick}>Login with Google</button>
-      <p />
-      <button onClick={onLinkClick}>Continue as guest</button>
-    </div>
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
   )
+
 }
 
 export default Home
